@@ -29,12 +29,11 @@ namespace DummyClient
         {
             ushort count = 0;
 
-            ushort size = BitConverter.ToUInt16(s.Array, s.Offset);
+            //ushort size = BitConverter.ToUInt16(s.Array, s.Offset);
             count += 2;
-            ushort id = BitConverter.ToUInt16(s.Array, s.Offset + count);
+            //ushort id = BitConverter.ToUInt16(s.Array, s.Offset + count);
             count += 2;
-
-            long playerId = BitConverter.ToInt64(s.Array, s.Offset + count);
+            this.playerId = BitConverter.ToInt64(s.Array, s.Offset + count);
             count += 8;
            
         }
@@ -71,42 +70,13 @@ namespace DummyClient
         public override void OnConnected(EndPoint endPoint)
         {
             Console.WriteLine($"OnConnected : {endPoint}");
-            PlayerInfoReq packet = new PlayerInfoReq() { packetId = (ushort)PacketID.PlayerInfoReq, playerId = 1001};
+            PlayerInfoReq packet = new PlayerInfoReq() {  playerId = 1001};
             //보낸다
             //for (int i = 0; i < 5; i++)
             {
-                ArraySegment<byte> openSegment = SendBufferHelper.Open(4096);
-
-                ushort count = 0;
-                bool success = true;
-                //byte[] size = BitConverter.GetBytes(packet.size); // 2
-                //byte[] packetId = BitConverter.GetBytes(packet.packetId); // 2
-                //byte[] playerId = BitConverter.GetBytes(packet.playerId); // 8
-
-                ////자동화 필요 -> offset 설정위해 지금까지 사용한 byte 정보 필요
-                //ushort count = 0;
-
-                //Array.Copy(size, 0, openSegment.Array, openSegment.Offset + count, 2);
-                //count += 2;
-                //Array.Copy(packetId, 0, openSegment.Array, openSegment.Offset + count, 2);
-                //count += 2;
-                //Array.Copy(playerId, 0, openSegment.Array, openSegment.Offset + count, 8);
-                //count += 8;
-
-                // 위에꺼 줄인 버전
-                //success &= BitConverter.TryWriteBytes(new Span<byte>(openSegment.Array, openSegment.Offset, openSegment.Count), packet.size);
-                count += 2;
-                success &= BitConverter.TryWriteBytes(new Span<byte>(openSegment.Array, openSegment.Offset + count, openSegment.Count - count), packet.packetId);
-                count += 2;
-                success &= BitConverter.TryWriteBytes(new Span<byte>(openSegment.Array, openSegment.Offset + count, openSegment.Count - count), packet.playerId);
-                count += 8;
-
-                success &= BitConverter.TryWriteBytes(new Span<byte>(openSegment.Array, openSegment.Offset, openSegment.Count), count); //뒤에 넣어주는 크기 유의
-
-
-                ArraySegment<byte> sendBuff = SendBufferHelper.Close(count);
-                if (success)
-                    Send(sendBuff);
+                ArraySegment<byte> s = packet.Write(); //직렬화
+                if (s != null)
+                    Send(s);
 
             }
 
