@@ -19,6 +19,7 @@ namespace DummyClient
     class PlayerInfoReq : Packet
     {
         public long playerId; //8byte
+        public string name;
 
         public PlayerInfoReq()
         {
@@ -31,12 +32,16 @@ namespace DummyClient
 
             ReadOnlySpan<byte> s = new ReadOnlySpan<byte>(segment.Array, segment.Offset + count, segment.Count);
 
-            //ushort size = BitConverter.ToUInt16(s.Array, s.Offset);
             count += sizeof(ushort);
-            //ushort id = BitConverter.ToUInt16(s.Array, s.Offset + count);
             count += sizeof(ushort);
             this.playerId = BitConverter.ToInt64(s.Slice(count, s.Length - count));
             count += sizeof(long);
+
+            //string
+
+            ushort nameLen = BitConverter.ToUInt16(s.Slice(count, s.Length - count));
+            count += sizeof(ushort);
+            this.name = Encoding.Unicode.GetString(s.Slice(count, nameLen)); 
 
         }
 
@@ -54,7 +59,16 @@ namespace DummyClient
             count += sizeof(ushort);
             success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count),this.packetId);
             count += sizeof(long);
+
+            //string
+            ushort nameLen = (ushort)Encoding.Unicode.GetByteCount(this.name);//byte로 변환되었을때의 크기
+            success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), nameLen);
+            count += sizeof(ushort);
+            Array.Copy(Encoding.Unicode.GetBytes(this.name), 0, openSegment.Array, count, nameLen);
+            count += nameLen;
+
             success &= BitConverter.TryWriteBytes(s, count); //뒤에 넣어주는 크기 유의
+
 
             if (success == false)
                 return null;
@@ -73,7 +87,7 @@ namespace DummyClient
         public override void OnConnected(EndPoint endPoint)
         {
             Console.WriteLine($"OnConnected : {endPoint}");
-            PlayerInfoReq packet = new PlayerInfoReq() {  playerId = 1001};
+            PlayerInfoReq packet = new PlayerInfoReq() {  playerId = 1001, name = "Hello"};
             //보낸다
             //for (int i = 0; i < 5; i++)
             {
