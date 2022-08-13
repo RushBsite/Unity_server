@@ -57,7 +57,7 @@ namespace DummyClient
             count += sizeof(ushort);
             success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count),this.packetId);// slice 하더라도 s 변화 x
             count += sizeof(ushort);
-            success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count),this.packetId);
+            success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count),this.playerId);
             count += sizeof(long);
 
             //string
