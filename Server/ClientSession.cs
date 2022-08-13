@@ -25,16 +25,18 @@ namespace Server
             this.packetId = (ushort)PacketID.PlayerInfoReq;
         }
 
-        public override void Read(ArraySegment<byte> s)
+        public override void Read(ArraySegment<byte> segment)
         {
             ushort count = 0;
 
+            ReadOnlySpan<byte> s = new ReadOnlySpan<byte>(segment.Array, segment.Offset + count, segment.Count);
+
             //ushort size = BitConverter.ToUInt16(s.Array, s.Offset);
-            count += 2;
+            count += sizeof(ushort);
             //ushort id = BitConverter.ToUInt16(s.Array, s.Offset + count);
-            count += 2;
-            this.playerId = BitConverter.ToInt64(new ReadOnlySpan<byte>(s.Array, s.Offset + count, s.Count - count));
-            count += 8;
+            count += sizeof(ushort);
+            this.playerId = BitConverter.ToInt64(s.Slice(count, s.Length - count));
+            count += sizeof(long);
 
         }
 
@@ -45,13 +47,14 @@ namespace Server
             ushort count = 0;
             bool success = true;
 
-            count += 2;
-            success &= BitConverter.TryWriteBytes(new Span<byte>(openSegment.Array, openSegment.Offset + count, openSegment.Count - count), this.packetId);
-            count += 2;
-            success &= BitConverter.TryWriteBytes(new Span<byte>(openSegment.Array, openSegment.Offset + count, openSegment.Count - count), this.playerId);
-            count += 8;
+            Span<byte> s = new Span<byte>(openSegment.Array, openSegment.Offset, openSegment.Count); //범위 찝어줌
 
-            success &= BitConverter.TryWriteBytes(new Span<byte>(openSegment.Array, openSegment.Offset, openSegment.Count), count); //뒤에 넣어주는 크기 유의
+            count += sizeof(ushort);
+            success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), this.packetId);// slice 하더라도 s 변화 x
+            count += sizeof(ushort);
+            success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), this.packetId);
+            count += sizeof(long);
+            success &= BitConverter.TryWriteBytes(s, count); //뒤에 넣어주는 크기 유의
 
             if (success == false)
                 return null;
