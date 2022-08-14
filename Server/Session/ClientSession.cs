@@ -17,14 +17,19 @@ namespace Server
         public override void OnConnected(EndPoint endPoint)
         {
             Console.WriteLine($"OnConnected : {endPoint}");
-            
-            //TODO
+
+            Program.Room.Enter(this);
         }
 
         public override void OnDisConnected(EndPoint endPoint)
         {
 
             SessionManager.instance.Remove(this);
+            if(Room != null)
+            {
+                Room.Leave(this);
+                Room = null;
+            }
             Console.WriteLine($"OnDisconnected : {endPoint}");
         }
 
