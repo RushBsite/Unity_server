@@ -15,6 +15,9 @@ namespace Server
 
         static void Main(string[] args)
         {
+            PacketManager.Instance.Register();
+
+
             //DNS (Domain Name System)
             // www.naver.com -> xxx.xxx.xx.xx
             string host = Dns.GetHostName();

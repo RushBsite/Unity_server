@@ -11,18 +11,26 @@ public enum PacketID
 	
 }
 
+interface IPacket
+{
+	ushort Protocaol { get; }
+	void Read(ArraySegment<byte> segment);
+	ArraySegment<byte> Write();
+}
 
-class PlayerInfoReq
+public ushort Protocol { get { return (ushort)PacketID.PlayerInfoReq; } }
+
+class PlayerInfoReq : IPacket
 {
     public byte testByte;
 	public long playerId;
 	public string name;
-	 public class Skill
+	 public struct Skill
 	{
 	    public int id;
 		public short level;
 		public float duration;
-		 public class Attribute
+		 public struct Attribute
 		{
 		    public int att;
 		    
@@ -116,11 +124,11 @@ class PlayerInfoReq
 
     public  ArraySegment<byte> Write()
     {
-        ArraySegment<byte> segment = SendBufferHelper.Open(4096);
+        ArraySegment<byte> openSegment = SendBufferHelper.Open(4096);
         ushort count = 0;
         bool success = true;
 
-        Span<byte> s = new Span<byte>(segment.Array, segment.Offset, segment.Count); //범위 찝어줌
+        Span<byte> s = new Span<byte>(openSegment.Array, openSegment.Offset, openSegment.Count); //범위 찝어줌
 
         count += sizeof(ushort);
         success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count),(ushort)PacketID.PlayerInfoReq);// slice 하더라도 s 변화 x
@@ -129,7 +137,7 @@ class PlayerInfoReq
 		count += sizeof(byte);
 		success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count),this.playerId);
 		count += sizeof(long);
-		ushort nameLen = (ushort)Encoding.Unicode.GetBytes(this.name, 0, this.name.Length, segment.Array, segment.Offset + count + sizeof(ushort));
+		ushort nameLen = (ushort)Encoding.Unicode.GetBytes(this.name, 0, this.name.Length, openSegment.Array, openSegment.Offset + count + sizeof(ushort));
 		success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), nameLen);
 		count += sizeof(ushort);
 		count += nameLen;
@@ -168,11 +176,11 @@ class Test
 
     public  ArraySegment<byte> Write()
     {
-        ArraySegment<byte> segment = SendBufferHelper.Open(4096);
+        ArraySegment<byte> openSegment = SendBufferHelper.Open(4096);
         ushort count = 0;
         bool success = true;
 
-        Span<byte> s = new Span<byte>(segment.Array, segment.Offset, segment.Count); //범위 찝어줌
+        Span<byte> s = new Span<byte>(openSegment.Array, openSegment.Offset, openSegment.Count); //범위 찝어줌
 
         count += sizeof(ushort);
         success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count),(ushort)PacketID.Test);// slice 하더라도 s 변화 x
