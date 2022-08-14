@@ -12,21 +12,19 @@ namespace Server
 
 	class ClientSession : PacketSession
     {
+        public int SessionId { get; set; }
+        public GameRoom Room { get; set; }
         public override void OnConnected(EndPoint endPoint)
         {
             Console.WriteLine($"OnConnected : {endPoint}");
-
-
+            
             //TODO
-            //Flatbuffer serialize to buffer func
-
-            //Send(sendBuff);
-            Thread.Sleep(5000);
-            Disconnect();
         }
 
         public override void OnDisConnected(EndPoint endPoint)
         {
+
+            SessionManager.instance.Remove(this);
             Console.WriteLine($"OnDisconnected : {endPoint}");
         }
 

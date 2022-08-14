@@ -22,8 +22,8 @@ class PacketManager //싱글톤구현
         
     public void Register()
     {
-              _onRecv.Add((ushort)PacketID.C_PlayerInfoReq, MakePacket<C_PlayerInfoReq>);
-        _handler.Add((ushort)PacketID.C_PlayerInfoReq, PacketHandler.C_PlayerInfoReqHandler);
+              _onRecv.Add((ushort)PacketID.C_Chat, MakePacket<C_Chat>);
+        _handler.Add((ushort)PacketID.C_Chat, PacketHandler.C_ChatHandler);
 
     }
     public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
