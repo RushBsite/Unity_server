@@ -29,10 +29,17 @@ namespace Server
             _listener.Init(endPoint, () => { return SessionManager.instance.Generate(); });
             Console.WriteLine("Listening...");
 
+            int roomTick = 0;
+
             while (true)
             {
-                Room.Push(() => Room.Flush());
-                Thread.Sleep(250);
+                int now = System.Environment.TickCount;
+                if(roomTick < now)
+                {
+                    Room.Push(() => Room.Flush());
+                    roomTick = now + 250;
+                }
+                
             }
 
 
