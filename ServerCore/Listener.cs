@@ -12,7 +12,7 @@ namespace ServerCore
         Socket _listenSocket;
         Func<Session> _sessionFactory;
 
-        public void Init(IPEndPoint endPoint, Func<Session> sessionFactory) //초기화
+        public void Init(IPEndPoint endPoint, Func<Session> sessionFactory, int register = 10, int backlog = 100) //초기화
         {
             _listenSocket = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             _sessionFactory += sessionFactory; //비동기실행시 listener 호출 원함수로 되돌려줄 이벤트 위한 핸들러
@@ -22,14 +22,17 @@ namespace ServerCore
 
             //영업시작
             // backlog : 최대 대기수
-            _listenSocket.Listen(10);
+            _listenSocket.Listen(backlog);
 
-            //pending 상태라면 서버로 해당정보 보내고 비동기처리한다. 이벤트 생성
-            SocketAsyncEventArgs args = new SocketAsyncEventArgs();
-            args.Completed += new EventHandler<SocketAsyncEventArgs>(OnAcceptCompleted); //소켓 async 이벤트 핸들러, 이벤트 완료되면 OnAcceptCompleted로
-            RegisterAccept(args); //이벤트 등록후 호출
-            //1. pending true 라면 RegisterAccpet -> pending == true임으로 조건문 안걸림 + Eventhandler args 콜백되면 -> OnAcceptCompleted로
-            //2. pending false 라면 RegisterAccept -> 바로 OnAcceptCompleted로
+            for (int i=0; i<register; i++)
+            {
+                //pending 상태라면 서버로 해당정보 보내고 비동기처리한다. 이벤트 생성
+                SocketAsyncEventArgs args = new SocketAsyncEventArgs();
+                args.Completed += new EventHandler<SocketAsyncEventArgs>(OnAcceptCompleted); //소켓 async 이벤트 핸들러, 이벤트 완료되면 OnAcceptCompleted로
+                RegisterAccept(args); //이벤트 등록후 호출
+                                      //1. pending true 라면 RegisterAccpet -> pending == true임으로 조건문 안걸림 + Eventhandler args 콜백되면 -> OnAcceptCompleted로
+                                      //2. pending false 라면 RegisterAccept -> 바로 OnAcceptCompleted로
+            }
         }
 
         void RegisterAccept(SocketAsyncEventArgs args) //thread pool 에서 실행됨
