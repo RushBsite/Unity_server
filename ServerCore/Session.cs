@@ -16,6 +16,7 @@ namespace ServerCore
         public sealed override int OnRecv(ArraySegment<byte> buffer)//다른 클래스가 오버라이드 못함
         {
             int processLen = 0;//진행도
+            int packetCount = 0;
 
             while (true)
             {
@@ -29,10 +30,14 @@ namespace ServerCore
                 //Arraysegment는 스택에 생성됨. 공유메모리 아님(struct라)
                 //여기까지 오면 패킷 조립 가능
                 OnRecvPacket(new ArraySegment<byte>(buffer.Array,buffer.Offset,dataSize));
+                packetCount++;
 
                 processLen += dataSize;
                 buffer = new ArraySegment<byte>(buffer.Array, buffer.Offset + dataSize, buffer.Count - dataSize); //다음부분
             }
+
+            if(packetCount> 1)
+                Console.WriteLine($"패킷 모아 보내기 : {packetCount}");
             
             return processLen;
         }
@@ -46,7 +51,7 @@ namespace ServerCore
         int _disconnected = 0;
 
         //session 과 recvbuffer 1:1
-        RecvBuffer _recvBuffer = new RecvBuffer(1024);
+        RecvBuffer _recvBuffer = new RecvBuffer(65535);
 
         object _lock = new object();
         Queue<ArraySegment<byte>> _sendQueue = new Queue<ArraySegment<byte>>();
@@ -88,6 +93,21 @@ namespace ServerCore
             lock (_lock) //동시다발적으로 sendbuff 접근해서 무분별하게 보내면 오류 -> lock
             {
                 _sendQueue.Enqueue(sendBuff); //바로 레지스터에 보내는게 아니라 일단 큐에 넣는다.
+                if (_pendingList.Count == 0)
+                    RegisterSend();
+            }
+
+        }
+        public void Send(List<ArraySegment<byte>> sendBuffList)
+        {
+            if (sendBuffList.Count == 0)
+                return;
+            lock (_lock) //동시다발적으로 sendbuff 접근해서 무분별하게 보내면 오류 -> lock
+            {
+                foreach (ArraySegment<byte> sendBuff in sendBuffList)
+                {
+                    _sendQueue.Enqueue(sendBuff);
+                }
                 if (_pendingList.Count == 0)
                     RegisterSend();
             }

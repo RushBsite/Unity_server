@@ -31,7 +31,8 @@ namespace Server
 
             while (true)
             {
-                //main thread loop
+                Room.Push(() => Room.Flush());
+                Thread.Sleep(250);
             }
 
 
