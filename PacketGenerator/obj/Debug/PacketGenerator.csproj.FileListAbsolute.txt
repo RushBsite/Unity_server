@@ -1,0 +1,7 @@
+D:\Visual_sol\Unity_server\PacketGenerator\bin\Debug\PacketGenerator.exe.config
+D:\Visual_sol\Unity_server\PacketGenerator\bin\Debug\PacketGenerator.exe
+D:\Visual_sol\Unity_server\PacketGenerator\bin\Debug\PacketGenerator.pdb
+D:\Visual_sol\Unity_server\PacketGenerator\obj\Debug\PacketGenerator.csproj.AssemblyReference.cache
+D:\Visual_sol\Unity_server\PacketGenerator\obj\Debug\PacketGenerator.csproj.CoreCompileInputs.cache
+D:\Visual_sol\Unity_server\PacketGenerator\obj\Debug\PacketGenerator.exe
+D:\Visual_sol\Unity_server\PacketGenerator\obj\Debug\PacketGenerator.pdb
