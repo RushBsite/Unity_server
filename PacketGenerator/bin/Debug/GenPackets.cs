@@ -1,7 +1,21 @@
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Text;
+using ServerCore;
 
-class PlaterInfoReq
+public enum PacketID
 {
-    public long playerId;
+    PlayerInfoReq = 1,
+	Test = 2,
+	
+}
+
+
+class PlayerInfoReq
+{
+    public byte testByte;
+	public long playerId;
 	public string name;
 	 public struct Skill
 	{
@@ -43,7 +57,9 @@ class PlaterInfoReq
         ReadOnlySpan<byte> s = new ReadOnlySpan<byte>(segment.Array, segment.Offset + count, segment.Count);
         count += sizeof(ushort);
         count += sizeof(ushort);
-        this.playerId = BitConverter.ToInt64(s.Slice(count, s.Length - count));
+        this.testByte = (byte)segment.Array[segment.Offset + count];
+		count += sizeof(byte);
+		this.playerId = BitConverter.ToInt64(s.Slice(count, s.Length - count));
 		count += sizeof(long);
 		
 		
@@ -51,7 +67,7 @@ class PlaterInfoReq
 		count += sizeof(ushort);
 		this.name = Encoding.Unicode.GetString(s.Slice(count, nameLen));
 		count += nameLen;
-		this.skill.Clear();
+		this.skills.Clear();
 		ushort skillLen = BitConverter.ToUInt16(s.Slice(count, s.Length - count));
 		count += sizeof(ushort);
 		for (int i = 0; i < skillLen; i++)
@@ -72,9 +88,11 @@ class PlaterInfoReq
         Span<byte> s = new Span<byte>(openSegment.Array, openSegment.Offset, openSegment.Count); //범위 찝어줌
 
         count += sizeof(ushort);
-        success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count),(ushort)PacketID.PlaterInfoReq);// slice 하더라도 s 변화 x
+        success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count),(ushort)PacketID.PlayerInfoReq);// slice 하더라도 s 변화 x
         count += sizeof(ushort);
-        success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count),this.playerId);
+        segment.Array[segment.Offset + count] = (byte)this.testByte;
+		count += sizeof(byte);
+		success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count),this.playerId);
 		count += sizeof(long);
 		ushort nameLen = (ushort)Encoding.Unicode.GetBytes(this.name, 0, this.name.Length, openSegment.Array, openSegment.Offset + count + sizeof(ushort));
 		success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), nameLen);
@@ -93,5 +111,46 @@ class PlaterInfoReq
         return SendBufferHelper.Close(count);
     }
 }
+
+
+
+class Test
+{
+    public int testint;
+
+    public  void Read(ArraySegment<byte> segment)
+    {
+        ushort count = 0;
+
+        ReadOnlySpan<byte> s = new ReadOnlySpan<byte>(segment.Array, segment.Offset + count, segment.Count);
+        count += sizeof(ushort);
+        count += sizeof(ushort);
+        this.testint = BitConverter.ToInt32(s.Slice(count, s.Length - count));
+		count += sizeof(int);
+		
+        
+    }
+
+    public  ArraySegment<byte> Write()
+    {
+        ArraySegment<byte> openSegment = SendBufferHelper.Open(4096);
+        ushort count = 0;
+        bool success = true;
+
+        Span<byte> s = new Span<byte>(openSegment.Array, openSegment.Offset, openSegment.Count); //범위 찝어줌
+
+        count += sizeof(ushort);
+        success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count),(ushort)PacketID.Test);// slice 하더라도 s 변화 x
+        count += sizeof(ushort);
+        success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count),this.testint);
+		count += sizeof(int);
+        success &= BitConverter.TryWriteBytes(s, count); //뒤에 넣어주는 크기 유의
+        if (success == false)
+            return null;
+             
+        return SendBufferHelper.Close(count);
+    }
+}
+
 
 
