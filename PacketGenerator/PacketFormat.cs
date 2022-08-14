@@ -52,11 +52,11 @@ class {0}
 
     public  ArraySegment<byte> Write()
     {{
-        ArraySegment<byte> openSegment = SendBufferHelper.Open(4096);
+        ArraySegment<byte> segment = SendBufferHelper.Open(4096);
         ushort count = 0;
         bool success = true;
 
-        Span<byte> s = new Span<byte>(openSegment.Array, openSegment.Offset, openSegment.Count); //범위 찝어줌
+        Span<byte> s = new Span<byte>(segment.Array, segment.Offset, segment.Count); //범위 찝어줌
 
         count += sizeof(ushort);
         success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count),(ushort)PacketID.{0});// slice 하더라도 s 변화 x
@@ -84,7 +84,7 @@ class {0}
         //{4} 맴버  변수 Write
 
         public static string memberListFormat =
-@" public struct {0}
+@" public class {0}
 {{
     {2}
     
@@ -150,7 +150,7 @@ count += sizeof({1});";
 
         // {0} 변수이름
         public static string writeStringFormat =
-@"ushort {0}Len = (ushort)Encoding.Unicode.GetBytes(this.{0}, 0, this.{0}.Length, openSegment.Array, openSegment.Offset + count + sizeof(ushort));
+@"ushort {0}Len = (ushort)Encoding.Unicode.GetBytes(this.{0}, 0, this.{0}.Length, segment.Array, segment.Offset + count + sizeof(ushort));
 success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), {0}Len);
 count += sizeof(ushort);
 count += {0}Len;";

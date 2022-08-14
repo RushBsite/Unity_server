@@ -8,14 +8,9 @@ using System.Threading.Tasks;
 using ServerCore;
 namespace Server
 {
+	
 
-    public enum PacketID
-    {
-        PlayerInfoReq = 1,
-        PlayerInfoOk = 2,
-    }
-
-    class ClientSession : PacketSession
+	class ClientSession : PacketSession
     {
         public override void OnConnected(EndPoint endPoint)
         {
