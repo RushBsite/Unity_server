@@ -18,7 +18,7 @@ namespace Server
         {
             Console.WriteLine($"OnConnected : {endPoint}");
 
-            Program.Room.Enter(this);
+            Program.Room.Push(() => Program.Room.Enter(this));
         }
 
         public override void OnDisConnected(EndPoint endPoint)
@@ -27,7 +27,8 @@ namespace Server
             SessionManager.instance.Remove(this);
             if(Room != null)
             {
-                Room.Leave(this);
+                GameRoom room = Room;
+                Room.Push(() => Room.Leave(this));
                 Room = null;
             }
             Console.WriteLine($"OnDisconnected : {endPoint}");
