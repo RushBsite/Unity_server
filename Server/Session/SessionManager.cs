@@ -29,5 +29,23 @@ namespace Server
                 return session;
             }
         }
+
+        public ClientSession Find(int id)
+        {
+            lock (_lock)
+            {
+                ClientSession session = null;
+                _sessions.TryGetValue(id, out session);
+                return session;
+            }
+            
+        }
+        public void Remove(ClientSession session)
+        {
+            lock (_lock)
+            {
+                _sessions.Remove(session.SessionId);
+            }
+        }
     }
 }

@@ -12,9 +12,11 @@ namespace ServerCore
     {
         public static readonly int HeaderSize = 2;
         //[size(2)][packetId(2)][....]
-        int processLen = 0;//진행도
+ 
         public sealed override int OnRecv(ArraySegment<byte> buffer)//다른 클래스가 오버라이드 못함
         {
+            int processLen = 0;//진행도
+
             while (true)
             {
                 //헤더 파싱 가능 확인
@@ -110,7 +112,7 @@ namespace ServerCore
 
         void RegisterSend()
         {
-            if (_disconnected == 1)
+            if (_socket == null || _disconnected == 1)
                 return;
     
             //send의 경우 서버가 어느시점에 전송할지 모르기때문에 예약 불가능
