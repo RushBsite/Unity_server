@@ -48,7 +48,6 @@ namespace ServerCore
 
         object _lock = new object();
         Queue<ArraySegment<byte>> _sendQueue = new Queue<ArraySegment<byte>>();
-
         List<ArraySegment<byte>> _pendingList = new List<ArraySegment<byte>>();
         SocketAsyncEventArgs _sendArgs = new SocketAsyncEventArgs();
 
@@ -60,6 +59,15 @@ namespace ServerCore
         public abstract int OnRecv(ArraySegment<byte> buffer); //데이터 처리량 리턴
         public abstract void OnSend(int numOfBytes);
         public abstract void OnDisConnected(EndPoint endPoint);
+
+        void Clear()
+        {
+            lock (_lock)
+            {
+                _sendQueue.Clear();
+                _pendingList.Clear();
+            }
+        }
 
 
         public void Start(Socket socket)
@@ -94,6 +102,7 @@ namespace ServerCore
             OnDisConnected(_socket.RemoteEndPoint);
             _socket.Shutdown(SocketShutdown.Both);
             _socket.Close();
+            Clear();
         }
 
         //받는다
