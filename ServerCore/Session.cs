@@ -132,7 +132,7 @@ namespace ServerCore
 
         void RegisterSend()
         {
-            if (_socket == null || _disconnected == 1)
+            if (_disconnected == 1)
                 return;
     
             //send의 경우 서버가 어느시점에 전송할지 모르기때문에 예약 불가능
