@@ -14,7 +14,7 @@ namespace PacketGenerator
 using System;
 using System.Collections.Generic;
 
-class PacketManager //싱글톤구현
+public class PacketManager //싱글톤구현
 {{
     #region Singleton
     static PacketManager _instance = new PacketManager();
@@ -106,7 +106,7 @@ public interface IPacket
         // {3} 맴버  변수 Write
         public static string packetFormat = //@붙으면 여러줄 문자열
 @"
-class {0} : IPacket
+public class {0} : IPacket
 {{
     {1}
 
