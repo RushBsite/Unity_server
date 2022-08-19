@@ -16,7 +16,7 @@ namespace Server
     {
         
         static Listener _listener = new Listener();
-
+        public static GameRoom Room = new GameRoom();
         static void FlushRoom()
         {
             JobTimer.Instance.Push(FlushRoom, 250);

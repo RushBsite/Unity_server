@@ -15,6 +15,7 @@ namespace Server
 	class ClientSession : PacketSession
     {
         public int SessionId { get; set; }
+        public GameRoom Room { get; set; }
         public float PosX { get; set; }
         public float PosY { get; set; }
         public float PosZ { get; set; }
@@ -54,7 +55,7 @@ namespace Server
 
         public override void OnRecvPacket(ArraySegment<byte> buffer)
         {
-            //PacketManager.Instance.OnRecvPacket(this, buffer);
+            PacketManager.Instance.OnRecvPacket(this, buffer);
         }
 
         public override void OnSend(int numOfBytes)
