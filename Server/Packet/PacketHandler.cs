@@ -1,4 +1,5 @@
-﻿using Server;
+﻿using FlatBuffers;
+using Server;
 using ServerCore;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Text;
 
 class PacketHandler //수동관리
 {
-    public static void C_LeaveGameHandler(PacketSession session, IPacket packet)
+    public static void C_LeaveGameHandler(PacketSession session, IFlatbufferObject packet)
     {
         ClientSession clientSession = session as ClientSession;
         if (clientSession.Room == null)
@@ -17,7 +18,7 @@ class PacketHandler //수동관리
             () => room.Leave(clientSession));
     }
 
-    public static void C_MoveHandler(PacketSession session, IPacket packet)
+    public static void C_MoveHandler(PacketSession session, IFlatbufferObject packet)
     {
         C_Move movePacket = packet as C_Move;
         ClientSession clientSession = session as ClientSession;

@@ -1,5 +1,14 @@
 namespace PlayerSample;
 
+union fbsId{
+	S_BroadcastEnterGame,
+	C_LeaveGame,
+	S_BroadcastLeaveGame,
+	S_PlayerList,
+	C_Move,
+	S_BroadcastMove
+}
+
 struct Vec3{
 	x:float;
 	y:float;

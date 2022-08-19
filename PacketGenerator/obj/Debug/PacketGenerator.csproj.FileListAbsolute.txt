@@ -5,3 +5,5 @@ D:\Visual_sol\Unity_server\PacketGenerator\obj\Debug\PacketGenerator.pdb
 D:\Visual_sol\Unity_server\PacketGenerator\bin\PacketGenerator.exe.config
 D:\Visual_sol\Unity_server\PacketGenerator\bin\PacketGenerator.exe
 D:\Visual_sol\Unity_server\PacketGenerator\bin\PacketGenerator.pdb
+D:\Visual_sol\Unity_server\PacketGenerator\bin\FlatBuffers.dll
+D:\Visual_sol\Unity_server\PacketGenerator\obj\Debug\PacketGenerator.csproj.CopyComplete

@@ -6,11 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Packet\PacketHandler.cs" />
-    <Compile Remove="Packet\ServerPacketManager.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ServerCore\ServerCore.csproj" />
   </ItemGroup>
 
@@ -18,10 +13,6 @@
     <Reference Include="FlatBuffers">
       <HintPath>..\..\Server\Lib\FlatBuffers.dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Packet\" />
   </ItemGroup>
 
 </Project>
