@@ -19,6 +19,7 @@ namespace Server
         public static GameRoom Room = new GameRoom();
         static void FlushRoom()
         {
+            Room.Push(() => Room.Flush());
             JobTimer.Instance.Push(FlushRoom, 250);
         }
         static void Main(string[] args)
