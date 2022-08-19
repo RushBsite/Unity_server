@@ -44,6 +44,8 @@ namespace Server
             Array.Copy(builder.SizedByteArray(), 0, sendBuffer, 4, size);
 
             Send(new ArraySegment<byte>(sendBuffer));
+
+            Program.Room.Push(() => Program.Room.Enter(this));
         }
 
         public override void OnDisConnected(EndPoint endPoint)
