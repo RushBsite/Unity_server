@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v3.1": {
       "Server/1.0.0": {
         "dependencies": {
-          "ServerCore": "1.0.0"
+          "ServerCore": "1.0.0",
+          "FlatBuffers": "1.0.0.0"
         },
         "runtime": {
           "Server.dll": {}
