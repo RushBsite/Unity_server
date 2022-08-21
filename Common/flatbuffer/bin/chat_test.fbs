@@ -1,0 +1,19 @@
+namespace ChatTest;
+
+union fbsId{
+	C_Chat,
+	S_Chat,
+	S_EnterGame
+}
+
+table C_Chat{
+	context:string;
+}
+
+table S_Chat{
+	context:string;
+}
+
+table S_EnterGame{
+	context:string;
+}

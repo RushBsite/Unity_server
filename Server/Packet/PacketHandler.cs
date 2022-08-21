@@ -1,4 +1,5 @@
 ﻿using FlatBuffers;
+using ChatTest;
 using Server;
 using ServerCore;
 using System;
@@ -7,31 +8,15 @@ using System.Text;
 
 class PacketHandler //수동관리
 {
-    public static void C_LeaveGameHandler(PacketSession session, IFlatbufferObject packet)
-    {
-        ClientSession clientSession = session as ClientSession;
-        if (clientSession.Room == null)
-            return;
+	FlatBufferBuilder fbb = new FlatBufferBuilder(1);
+	public static void C_ChatHandler(PacketSession session, IFlatbufferObject packet)
+	{
+		C_Chat chatPacket = C_Chat.GetRootAsC_Chat(packet.ByteBuffer);
 
-        GameRoom room = clientSession.Room;
-        clientSession.Room.Push(
-            () => room.Leave(clientSession));
-    }
+		ClientSession serverSession = session as ClientSession;
 
-    public static void C_MoveHandler(PacketSession session, IFlatbufferObject packet)
-    {
-        C_Move movePacket = packet as C_Move;
-        ClientSession clientSession = session as ClientSession;
-
-        if (clientSession.Room == null)
-            return;
-
-        Console.WriteLine($"{movePacket.posX}, {movePacket.posY}, {movePacket.posZ}");
-
-        GameRoom room = clientSession.Room;
-        clientSession.Room.Push(
-            () => room.Move(clientSession, movePacket));
-    }
+		Console.WriteLine(chatPacket.Context);
+	}
 
 }
 

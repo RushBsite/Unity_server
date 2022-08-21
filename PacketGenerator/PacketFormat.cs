@@ -9,7 +9,7 @@ namespace PacketGenerator
 		// {0} 패킷 등록
 		public static string managerFormat =
 @"using FlatBuffers;
-using PlayerSample;
+using ChatTest;
 using ServerCore;
 using System;
 using System.Collections.Generic;
@@ -50,7 +50,11 @@ class PacketManager
 	void MakePacket<T>(PacketSession session, ArraySegment<byte> buffer, ushort id) where T : IFlatbufferObject, new()
 	{{
 		T pkt = new T();
-		pkt.ByteBuffer.Put(buffer.Offset, buffer.Array);
+		byte[] recvBuffer = new byte[buffer.Count - 4];
+		Array.Copy(buffer.Array, buffer.Offset + 4, recvBuffer, 0, buffer.Count - 4);
+		ByteBuffer bb = new ByteBuffer(recvBuffer);
+		pkt.__init(id, bb);
+
 		Action<PacketSession, IFlatbufferObject> action = null;
 		if (_handler.TryGetValue(id, out action))
 			action.Invoke(session, pkt);

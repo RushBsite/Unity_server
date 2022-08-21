@@ -21,10 +21,8 @@ class PacketManager
 		
 	public void Register()
 	{		
-		_onRecv.Add((ushort)fbsId.C_LeaveGame, MakePacket<C_LeaveGame>);
-		_handler.Add((ushort)fbsId.C_LeaveGame, PacketHandler.C_LeaveGameHandler);		
-		_onRecv.Add((ushort)fbsId.C_Move, MakePacket<C_Move>);
-		_handler.Add((ushort)fbsId.C_Move, PacketHandler.C_MoveHandler);
+		_onRecv.Add((ushort)fbsId.C_Chat, MakePacket<C_Chat>);
+		_handler.Add((ushort)fbsId.C_Chat, PacketHandler.C_ChatHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

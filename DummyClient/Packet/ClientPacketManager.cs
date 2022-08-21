@@ -21,14 +21,10 @@ class PacketManager
 		
 	public void Register()
 	{		
-		_onRecv.Add((ushort)fbsId.S_BroadcastEnterGame, MakePacket<S_BroadcastEnterGame>);
-		_handler.Add((ushort)fbsId.S_BroadcastEnterGame, PacketHandler.S_BroadcastEnterGameHandler);		
-		_onRecv.Add((ushort)fbsId.S_BroadcastLeaveGame, MakePacket<S_BroadcastLeaveGame>);
-		_handler.Add((ushort)fbsId.S_BroadcastLeaveGame, PacketHandler.S_BroadcastLeaveGameHandler);		
-		_onRecv.Add((ushort)fbsId.S_PlayerList, MakePacket<S_PlayerList>);
-		_handler.Add((ushort)fbsId.S_PlayerList, PacketHandler.S_PlayerListHandler);		
-		_onRecv.Add((ushort)fbsId.S_BroadcastMove, MakePacket<S_BroadcastMove>);
-		_handler.Add((ushort)fbsId.S_BroadcastMove, PacketHandler.S_BroadcastMoveHandler);
+		_onRecv.Add((ushort)fbsId.S_Chat, MakePacket<S_Chat>);
+		_handler.Add((ushort)fbsId.S_Chat, PacketHandler.S_ChatHandler);		
+		_onRecv.Add((ushort)fbsId.S_EnterGame, MakePacket<S_EnterGame>);
+		_handler.Add((ushort)fbsId.S_EnterGame, PacketHandler.S_EnterGameHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
