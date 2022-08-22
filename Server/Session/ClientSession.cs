@@ -21,6 +21,16 @@ namespace Server
 
         private FlatBufferBuilder fbb = new FlatBufferBuilder(1);
 
+        public void Send(ByteBuffer bb, ushort protocolId)
+        {           
+            ushort size = (ushort)(bb.Length - bb.Position);
+            byte[] sendBuffer = new byte[size + 4];
+            Array.Copy(BitConverter.GetBytes(size + 4), 0, sendBuffer, 0, sizeof(ushort));
+            Array.Copy(BitConverter.GetBytes(protocolId), 0, sendBuffer, 2, sizeof(ushort));
+            Array.Copy(bb.ToSizedArray(), 0, sendBuffer, 4, size);
+
+            Send(new ArraySegment<byte>(sendBuffer));
+        }
         public override void OnConnected(EndPoint endPoint)
         {
             Console.WriteLine($"OnConnected : {endPoint}");
@@ -32,17 +42,9 @@ namespace Server
             S_Chat.AddContext(fbb, context);
             var chatPacket = S_Chat.EndS_Chat(fbb);
             fbb.Finish(chatPacket.Value);
-            //Header
-            var buf = fbb.DataBuffer;
-            ushort size = (ushort)(buf.Length - buf.Position);
-            byte[] sendBuffer = new byte[size + 4];
-            Array.Copy(BitConverter.GetBytes(size + 4), 0, sendBuffer, 0, sizeof(ushort));
-            ushort protocolId = (ushort)fbsId.S_Chat;
-            Array.Copy(BitConverter.GetBytes(protocolId), 0, sendBuffer, 2, sizeof(ushort));
-            byte[] packetbuffer = buf.ToSizedArray();
-            Array.Copy(buf.ToSizedArray(), 0, sendBuffer, 4, size);
 
-            Send(new ArraySegment<byte>(sendBuffer));
+            Send(fbb.DataBuffer, (ushort)fbsId.S_Chat);
+          
         }
 
         public override void OnDisConnected(EndPoint endPoint)
