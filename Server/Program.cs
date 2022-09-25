@@ -6,8 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using ServerCore;
 using FlatBuffers;
-using PlayerSample;
 using System.IO;
+using Server.Game;
 
 namespace Server
 {
@@ -22,7 +22,10 @@ namespace Server
             JobTimer.Instance.Push(FlushRoom, 250);
         }
         static void Main(string[] args)
-        {            
+        {
+            RoomManager.Instance.Add(); //1번룸만 일단 사용
+
+
             //DNS (Domain Name System)
             // www.naver.com -> xxx.xxx.xx.xx
             string host = Dns.GetHostName();

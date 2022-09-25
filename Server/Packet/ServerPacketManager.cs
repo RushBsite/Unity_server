@@ -1,5 +1,5 @@
 using FlatBuffers;
-using ChatTest;
+using Protocol;
 using ServerCore;
 using System;
 using System.Collections.Generic;
@@ -21,8 +21,8 @@ class PacketManager
 		
 	public void Register()
 	{		
-		_onRecv.Add((ushort)fbsId.C_Chat, MakePacket<C_Chat>);
-		_handler.Add((ushort)fbsId.C_Chat, PacketHandler.C_ChatHandler);
+		_onRecv.Add((ushort)fbsId.C_Move, MakePacket<C_Move>);
+		_handler.Add((ushort)fbsId.C_Move, PacketHandler.C_MoveHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
