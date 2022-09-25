@@ -32,6 +32,10 @@ table S_Spawn{
 	players:[PlayerInfo];
 }
 
+table S_Desapwn{
+	playerIds:[int32];
+}
+
 table C_Move{
 	pos:Vec3;
 }
