@@ -110,6 +110,18 @@ namespace Server.Game
             }
         }
 
+        public void Broadcast(ByteBuffer bb, ushort protocolId)
+        {
+            lock (_lock)
+            {
+                foreach (Player p in _players)
+                {
+                    p.Session.Send(bb, protocolId);
+                }  
+            }
+        }
+
+
 
     }
 }
