@@ -9,6 +9,13 @@ union fbsId{
 	S_Move,
 }
 
+enum UserState : ushort {
+	Idle = 0,
+	Moving = 1,
+	Jumping = 2,
+	Dead = 3,
+}
+
 struct Vec3{
 	x:float;
 	y:float;
@@ -21,11 +28,16 @@ struct Euler{
 	rz:double;
 }
 
+struct PositionInfo{
+	state:UserState;
+	pos:Vec3;
+	angle:Euler;
+}
+
 struct PlayerInfo{
 	player_id:int32;
 	name:[ubyte:32];
-	pos:Vec3;
-	angle:Euler;
+	pos_info:PositionInfo;
 }
 
 
@@ -45,13 +57,11 @@ table S_Despawn{
 }
 
 table C_Move{
-	pos:Vec3;
-	angle:Euler;
+	pos_info:PositionInfo;
 }
 
 table S_Move{
 	player_id:int32;
-	pos:Vec3;
-	angle:Euler;
+	pos_info:PositionInfo;
 }
 

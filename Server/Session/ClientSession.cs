@@ -2,6 +2,7 @@
 using System.Net;
 using System.Text;
 using FlatBuffers;
+using Protocol;
 using Server.Game;
 using ServerCore;
 namespace Server
@@ -35,9 +36,11 @@ namespace Server
             {
                 string p_name = $"Player_{MyPlayer.Info.PlayerId}";
                 Encoding.ASCII.GetBytes(p_name).CopyTo(MyPlayer.Info.Name, 0);
-                MyPlayer.Info.Pos.X = 0;
-                MyPlayer.Info.Pos.Y = 0;
-                MyPlayer.Info.Pos.Z = 0;
+                MyPlayer.Info.PosInfo.State = UserState.Idle;
+                MyPlayer.Info.PosInfo.Pos.X = 0;
+                MyPlayer.Info.PosInfo.Pos.Y = 0;
+                MyPlayer.Info.PosInfo.Pos.Z = 0;
+                //MyPlayer.Info.PosInfo.Angle = {0,0,0};
                 MyPlayer.Session = this;
             }
             RoomManager.Instance.Find(1).EnterGame(MyPlayer);

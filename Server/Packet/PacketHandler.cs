@@ -13,7 +13,7 @@ class PacketHandler //수동관리
 
 		ClientSession serverSession = session as ClientSession;
 
-		Console.WriteLine($"X:{movePacket.Pos.Value.X},Y:{movePacket.Pos.Value.Y},Z:{movePacket.Pos.Value.Z}");
+		Console.WriteLine($"X:{movePacket.PosInfo.Value.Pos.X},Y:{movePacket.PosInfo.Value.Pos.Y},Z:{movePacket.PosInfo.Value.Pos.Z}");
 	}
 
 }

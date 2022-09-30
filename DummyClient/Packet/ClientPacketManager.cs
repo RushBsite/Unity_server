@@ -27,6 +27,8 @@ class PacketManager
 		_handler.Add((ushort)fbsId.S_LeaveGame, PacketHandler.S_LeaveGameHandler);		
 		_onRecv.Add((ushort)fbsId.S_Spawn, MakePacket<S_Spawn>);
 		_handler.Add((ushort)fbsId.S_Spawn, PacketHandler.S_SpawnHandler);		
+		_onRecv.Add((ushort)fbsId.S_Despawn, MakePacket<S_Despawn>);
+		_handler.Add((ushort)fbsId.S_Despawn, PacketHandler.S_DespawnHandler);		
 		_onRecv.Add((ushort)fbsId.S_Move, MakePacket<S_Move>);
 		_handler.Add((ushort)fbsId.S_Move, PacketHandler.S_MoveHandler);
 	}
