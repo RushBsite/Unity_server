@@ -125,57 +125,6 @@ public class Vec3T
   }
 }
 
-public struct Euler : IFlatbufferObject
-{
-  private Struct __p;
-  public ByteBuffer ByteBuffer { get { return __p.bb; } }
-  public void __init(int _i, ByteBuffer _bb) { __p = new Struct(_i, _bb); }
-  public Euler __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
-
-  public double Rx { get { return __p.bb.GetDouble(__p.bb_pos + 0); } }
-  public double Ry { get { return __p.bb.GetDouble(__p.bb_pos + 8); } }
-  public double Rz { get { return __p.bb.GetDouble(__p.bb_pos + 16); } }
-
-  public static Offset<Protocol.Euler> CreateEuler(FlatBufferBuilder builder, double Rx, double Ry, double Rz) {
-    builder.Prep(8, 24);
-    builder.PutDouble(Rz);
-    builder.PutDouble(Ry);
-    builder.PutDouble(Rx);
-    return new Offset<Protocol.Euler>(builder.Offset);
-  }
-  public EulerT UnPack() {
-    var _o = new EulerT();
-    this.UnPackTo(_o);
-    return _o;
-  }
-  public void UnPackTo(EulerT _o) {
-    _o.Rx = this.Rx;
-    _o.Ry = this.Ry;
-    _o.Rz = this.Rz;
-  }
-  public static Offset<Protocol.Euler> Pack(FlatBufferBuilder builder, EulerT _o) {
-    if (_o == null) return default(Offset<Protocol.Euler>);
-    return CreateEuler(
-      builder,
-      _o.Rx,
-      _o.Ry,
-      _o.Rz);
-  }
-};
-
-public class EulerT
-{
-  public double Rx { get; set; }
-  public double Ry { get; set; }
-  public double Rz { get; set; }
-
-  public EulerT() {
-    this.Rx = 0.0;
-    this.Ry = 0.0;
-    this.Rz = 0.0;
-  }
-}
-
 public struct PositionInfo : IFlatbufferObject
 {
   private Struct __p;
@@ -186,14 +135,9 @@ public struct PositionInfo : IFlatbufferObject
   public Protocol.MoveDir Direction { get { return (Protocol.MoveDir)__p.bb.GetUshort(__p.bb_pos + 0); } }
   public Protocol.UserState State { get { return (Protocol.UserState)__p.bb.GetUshort(__p.bb_pos + 2); } }
   public Protocol.Vec3 Pos { get { return (new Protocol.Vec3()).__assign(__p.bb_pos + 4, __p.bb); } }
-  public Protocol.Euler Angle { get { return (new Protocol.Euler()).__assign(__p.bb_pos + 16, __p.bb); } }
 
-  public static Offset<Protocol.PositionInfo> CreatePositionInfo(FlatBufferBuilder builder, Protocol.MoveDir Direction, Protocol.UserState State, float pos_X, float pos_Y, float pos_Z, double angle_Rx, double angle_Ry, double angle_Rz) {
-    builder.Prep(8, 40);
-    builder.Prep(8, 24);
-    builder.PutDouble(angle_Rz);
-    builder.PutDouble(angle_Ry);
-    builder.PutDouble(angle_Rx);
+  public static Offset<Protocol.PositionInfo> CreatePositionInfo(FlatBufferBuilder builder, Protocol.MoveDir Direction, Protocol.UserState State, float pos_X, float pos_Y, float pos_Z) {
+    builder.Prep(4, 16);
     builder.Prep(4, 12);
     builder.PutFloat(pos_Z);
     builder.PutFloat(pos_Y);
@@ -211,26 +155,19 @@ public struct PositionInfo : IFlatbufferObject
     _o.Direction = this.Direction;
     _o.State = this.State;
     _o.Pos = this.Pos.UnPack();
-    _o.Angle = this.Angle.UnPack();
   }
   public static Offset<Protocol.PositionInfo> Pack(FlatBufferBuilder builder, PositionInfoT _o) {
     if (_o == null) return default(Offset<Protocol.PositionInfo>);
     var _pos_x = _o.Pos.X;
     var _pos_y = _o.Pos.Y;
     var _pos_z = _o.Pos.Z;
-    var _angle_rx = _o.Angle.Rx;
-    var _angle_ry = _o.Angle.Ry;
-    var _angle_rz = _o.Angle.Rz;
     return CreatePositionInfo(
       builder,
       _o.Direction,
       _o.State,
       _pos_x,
       _pos_y,
-      _pos_z,
-      _angle_rx,
-      _angle_ry,
-      _angle_rz);
+      _pos_z);
   }
 };
 
@@ -239,13 +176,11 @@ public class PositionInfoT
   public Protocol.MoveDir Direction { get; set; }
   public Protocol.UserState State { get; set; }
   public Protocol.Vec3T Pos { get; set; }
-  public Protocol.EulerT Angle { get; set; }
 
   public PositionInfoT() {
     this.Direction = Protocol.MoveDir.N;
     this.State = Protocol.UserState.Idle;
     this.Pos = new Protocol.Vec3T();
-    this.Angle = new Protocol.EulerT();
   }
 }
 
@@ -258,22 +193,17 @@ public struct PlayerInfo : IFlatbufferObject
 
   public int PlayerId { get { return __p.bb.GetInt(__p.bb_pos + 0); } }
   public byte Name(int j) { return __p.bb.Get(__p.bb_pos + 4 + j * 1); }
-  public Protocol.PositionInfo PosInfo { get { return (new Protocol.PositionInfo()).__assign(__p.bb_pos + 40, __p.bb); } }
+  public Protocol.PositionInfo PosInfo { get { return (new Protocol.PositionInfo()).__assign(__p.bb_pos + 36, __p.bb); } }
 
-  public static Offset<Protocol.PlayerInfo> CreatePlayerInfo(FlatBufferBuilder builder, int PlayerId, byte[] Name, Protocol.MoveDir pos_info_Direction, Protocol.UserState pos_info_State, float pos_info_pos_X, float pos_info_pos_Y, float pos_info_pos_Z, double pos_info_angle_Rx, double pos_info_angle_Ry, double pos_info_angle_Rz) {
-    builder.Prep(8, 80);
-    builder.Prep(8, 40);
-    builder.Prep(8, 24);
-    builder.PutDouble(pos_info_angle_Rz);
-    builder.PutDouble(pos_info_angle_Ry);
-    builder.PutDouble(pos_info_angle_Rx);
+  public static Offset<Protocol.PlayerInfo> CreatePlayerInfo(FlatBufferBuilder builder, int PlayerId, byte[] Name, Protocol.MoveDir pos_info_Direction, Protocol.UserState pos_info_State, float pos_info_pos_X, float pos_info_pos_Y, float pos_info_pos_Z) {
+    builder.Prep(4, 52);
+    builder.Prep(4, 16);
     builder.Prep(4, 12);
     builder.PutFloat(pos_info_pos_Z);
     builder.PutFloat(pos_info_pos_Y);
     builder.PutFloat(pos_info_pos_X);
     builder.PutUshort((ushort)pos_info_State);
     builder.PutUshort((ushort)pos_info_Direction);
-    builder.Pad(4);
     for (int _idx0 = 32; _idx0 > 0; _idx0--) {
       builder.PutByte(Name[_idx0-1]);
     }
@@ -299,9 +229,6 @@ public struct PlayerInfo : IFlatbufferObject
     var _pos_info_pos_x = _o.PosInfo.Pos.X;
     var _pos_info_pos_y = _o.PosInfo.Pos.Y;
     var _pos_info_pos_z = _o.PosInfo.Pos.Z;
-    var _pos_info_angle_rx = _o.PosInfo.Angle.Rx;
-    var _pos_info_angle_ry = _o.PosInfo.Angle.Ry;
-    var _pos_info_angle_rz = _o.PosInfo.Angle.Rz;
     return CreatePlayerInfo(
       builder,
       _o.PlayerId,
@@ -310,10 +237,7 @@ public struct PlayerInfo : IFlatbufferObject
       _pos_info_state,
       _pos_info_pos_x,
       _pos_info_pos_y,
-      _pos_info_pos_z,
-      _pos_info_angle_rx,
-      _pos_info_angle_ry,
-      _pos_info_angle_rz);
+      _pos_info_pos_z);
   }
 };
 
@@ -420,7 +344,7 @@ public struct S_Spawn : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public S_Spawn __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public Protocol.PlayerInfo? Players(int j) { int o = __p.__offset(4); return o != 0 ? (Protocol.PlayerInfo?)(new Protocol.PlayerInfo()).__assign(__p.__vector(o) + j * 80, __p.bb) : null; }
+  public Protocol.PlayerInfo? Players(int j) { int o = __p.__offset(4); return o != 0 ? (Protocol.PlayerInfo?)(new Protocol.PlayerInfo()).__assign(__p.__vector(o) + j * 52, __p.bb) : null; }
   public int PlayersLength { get { int o = __p.__offset(4); return o != 0 ? __p.__vector_len(o) : 0; } }
 
   public static Offset<Protocol.S_Spawn> CreateS_Spawn(FlatBufferBuilder builder,
@@ -432,7 +356,7 @@ public struct S_Spawn : IFlatbufferObject
 
   public static void StartS_Spawn(FlatBufferBuilder builder) { builder.StartTable(1); }
   public static void AddPlayers(FlatBufferBuilder builder, VectorOffset playersOffset) { builder.AddOffset(0, playersOffset.Value, 0); }
-  public static void StartPlayersVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(80, numElems, 8); }
+  public static void StartPlayersVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(52, numElems, 4); }
   public static Offset<Protocol.S_Spawn> EndS_Spawn(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<Protocol.S_Spawn>(o);

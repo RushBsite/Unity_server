@@ -110,6 +110,12 @@ namespace Server.Game
             }
         }
 
+        public void HandleMove(Player player, C_MoveT movePacket)
+        {
+            
+
+        }
+
         public void Broadcast(ByteBuffer bb, ushort protocolId)
         {
             lock (_lock)
