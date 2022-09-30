@@ -16,22 +16,32 @@ enum UserState : ushort {
 	Dead = 3,
 }
 
+enum MoveDir : ushort {
+	N = 0,
+	NNE = 1,
+	ENE = 2,
+	E = 3,
+	ESE = 4,
+	SSE = 5,
+	S = 6,
+	SSW = 7,
+	WSW = 8,
+	W= 9,
+	WNW = 10,
+	NNW = 11,
+}
+
 struct Vec3{
 	x:float;
 	y:float;
 	z:float;
 }
 
-struct Euler{
-	rx:double;
-	ry:double;
-	rz:double;
-}
 
 struct PositionInfo{
+	direction:MoveDir;
 	state:UserState;
 	pos:Vec3;
-	angle:Euler;
 }
 
 struct PlayerInfo{

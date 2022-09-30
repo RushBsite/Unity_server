@@ -24,7 +24,7 @@ class PacketHandler //수동관리
 
 		//TODO : 검증
 
-		//일단 서버에서 좌표 위치 이동 계산
+		//일단 서버에서 좌표 위치 이동
 		PlayerInfoT info = clientSession.MyPlayer.Info;
 		info.PosInfo = movePacket.UnPack().PosInfo;
 

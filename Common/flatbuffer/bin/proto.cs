@@ -58,6 +58,22 @@ public enum UserState : ushort
   Dead = 3,
 };
 
+public enum MoveDir : ushort
+{
+  N = 0,
+  NNE = 1,
+  ENE = 2,
+  E = 3,
+  ESE = 4,
+  SSE = 5,
+  S = 6,
+  SSW = 7,
+  WSW = 8,
+  W = 9,
+  WNW = 10,
+  NNW = 11,
+};
+
 public struct Vec3 : IFlatbufferObject
 {
   private Struct __p;
@@ -167,11 +183,12 @@ public struct PositionInfo : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Struct(_i, _bb); }
   public PositionInfo __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public Protocol.UserState State { get { return (Protocol.UserState)__p.bb.GetUshort(__p.bb_pos + 0); } }
+  public Protocol.MoveDir Direction { get { return (Protocol.MoveDir)__p.bb.GetUshort(__p.bb_pos + 0); } }
+  public Protocol.UserState State { get { return (Protocol.UserState)__p.bb.GetUshort(__p.bb_pos + 2); } }
   public Protocol.Vec3 Pos { get { return (new Protocol.Vec3()).__assign(__p.bb_pos + 4, __p.bb); } }
   public Protocol.Euler Angle { get { return (new Protocol.Euler()).__assign(__p.bb_pos + 16, __p.bb); } }
 
-  public static Offset<Protocol.PositionInfo> CreatePositionInfo(FlatBufferBuilder builder, Protocol.UserState State, float pos_X, float pos_Y, float pos_Z, double angle_Rx, double angle_Ry, double angle_Rz) {
+  public static Offset<Protocol.PositionInfo> CreatePositionInfo(FlatBufferBuilder builder, Protocol.MoveDir Direction, Protocol.UserState State, float pos_X, float pos_Y, float pos_Z, double angle_Rx, double angle_Ry, double angle_Rz) {
     builder.Prep(8, 40);
     builder.Prep(8, 24);
     builder.PutDouble(angle_Rz);
@@ -181,8 +198,8 @@ public struct PositionInfo : IFlatbufferObject
     builder.PutFloat(pos_Z);
     builder.PutFloat(pos_Y);
     builder.PutFloat(pos_X);
-    builder.Pad(2);
     builder.PutUshort((ushort)State);
+    builder.PutUshort((ushort)Direction);
     return new Offset<Protocol.PositionInfo>(builder.Offset);
   }
   public PositionInfoT UnPack() {
@@ -191,6 +208,7 @@ public struct PositionInfo : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(PositionInfoT _o) {
+    _o.Direction = this.Direction;
     _o.State = this.State;
     _o.Pos = this.Pos.UnPack();
     _o.Angle = this.Angle.UnPack();
@@ -205,6 +223,7 @@ public struct PositionInfo : IFlatbufferObject
     var _angle_rz = _o.Angle.Rz;
     return CreatePositionInfo(
       builder,
+      _o.Direction,
       _o.State,
       _pos_x,
       _pos_y,
@@ -217,11 +236,13 @@ public struct PositionInfo : IFlatbufferObject
 
 public class PositionInfoT
 {
+  public Protocol.MoveDir Direction { get; set; }
   public Protocol.UserState State { get; set; }
   public Protocol.Vec3T Pos { get; set; }
   public Protocol.EulerT Angle { get; set; }
 
   public PositionInfoT() {
+    this.Direction = Protocol.MoveDir.N;
     this.State = Protocol.UserState.Idle;
     this.Pos = new Protocol.Vec3T();
     this.Angle = new Protocol.EulerT();
@@ -239,7 +260,7 @@ public struct PlayerInfo : IFlatbufferObject
   public byte Name(int j) { return __p.bb.Get(__p.bb_pos + 4 + j * 1); }
   public Protocol.PositionInfo PosInfo { get { return (new Protocol.PositionInfo()).__assign(__p.bb_pos + 40, __p.bb); } }
 
-  public static Offset<Protocol.PlayerInfo> CreatePlayerInfo(FlatBufferBuilder builder, int PlayerId, byte[] Name, Protocol.UserState pos_info_State, float pos_info_pos_X, float pos_info_pos_Y, float pos_info_pos_Z, double pos_info_angle_Rx, double pos_info_angle_Ry, double pos_info_angle_Rz) {
+  public static Offset<Protocol.PlayerInfo> CreatePlayerInfo(FlatBufferBuilder builder, int PlayerId, byte[] Name, Protocol.MoveDir pos_info_Direction, Protocol.UserState pos_info_State, float pos_info_pos_X, float pos_info_pos_Y, float pos_info_pos_Z, double pos_info_angle_Rx, double pos_info_angle_Ry, double pos_info_angle_Rz) {
     builder.Prep(8, 80);
     builder.Prep(8, 40);
     builder.Prep(8, 24);
@@ -250,8 +271,8 @@ public struct PlayerInfo : IFlatbufferObject
     builder.PutFloat(pos_info_pos_Z);
     builder.PutFloat(pos_info_pos_Y);
     builder.PutFloat(pos_info_pos_X);
-    builder.Pad(2);
     builder.PutUshort((ushort)pos_info_State);
+    builder.PutUshort((ushort)pos_info_Direction);
     builder.Pad(4);
     for (int _idx0 = 32; _idx0 > 0; _idx0--) {
       builder.PutByte(Name[_idx0-1]);
@@ -273,6 +294,7 @@ public struct PlayerInfo : IFlatbufferObject
   public static Offset<Protocol.PlayerInfo> Pack(FlatBufferBuilder builder, PlayerInfoT _o) {
     if (_o == null) return default(Offset<Protocol.PlayerInfo>);
     var _name = _o.Name;
+    var _pos_info_direction = _o.PosInfo.Direction;
     var _pos_info_state = _o.PosInfo.State;
     var _pos_info_pos_x = _o.PosInfo.Pos.X;
     var _pos_info_pos_y = _o.PosInfo.Pos.Y;
@@ -284,6 +306,7 @@ public struct PlayerInfo : IFlatbufferObject
       builder,
       _o.PlayerId,
       _name,
+      _pos_info_direction,
       _pos_info_state,
       _pos_info_pos_x,
       _pos_info_pos_y,
