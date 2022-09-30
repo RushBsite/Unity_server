@@ -4,6 +4,7 @@ union fbsId{
 	S_EnterGame,
 	S_LeaveGame,
 	S_Spawn,
+	S_Despawn,
 	C_Move,
 	S_Move,
 }
@@ -14,10 +15,17 @@ struct Vec3{
 	z:float;
 }
 
+struct Euler{
+	rx:double;
+	ry:double;
+	rz:double;
+}
+
 struct PlayerInfo{
 	player_id:int32;
 	name:[ubyte:32];
 	pos:Vec3;
+	angle:Euler;
 }
 
 
@@ -32,16 +40,18 @@ table S_Spawn{
 	players:[PlayerInfo];
 }
 
-table S_Desapwn{
-	playerIds:[int32];
+table S_Despawn{
+	player_ids:[int32];
 }
 
 table C_Move{
 	pos:Vec3;
+	angle:Euler;
 }
 
 table S_Move{
 	player_id:int32;
 	pos:Vec3;
+	angle:Euler;
 }
 

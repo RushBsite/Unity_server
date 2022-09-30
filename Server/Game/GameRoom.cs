@@ -93,6 +93,16 @@ namespace Server.Game
 
                 {
                     //TODO : disconnect 시 처리?
+                    fbb.Clear();
+                    S_DespawnT despawnPacket = new S_DespawnT();
+                    despawnPacket.PlayerIds = new List<int>();
+                    despawnPacket.PlayerIds.Add(player.Info.PlayerId);
+                    fbb.Finish(S_Despawn.Pack(fbb, despawnPacket).Value);
+                    foreach (Player p in _players)
+                    {
+                        if (player != p)
+                            p.Session.Send(fbb.DataBuffer, (ushort)fbsId.S_Despawn);
+                    }
                 }
 
 
