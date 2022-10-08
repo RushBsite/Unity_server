@@ -10,3 +10,15 @@ D:\Visual_sol\Unity_server\ServerCore\obj\Release\netcoreapp3.1\ServerCore.cspro
 D:\Visual_sol\Unity_server\ServerCore\obj\Release\netcoreapp3.1\ServerCore.csproj.CopyComplete
 D:\Visual_sol\Unity_server\ServerCore\obj\Release\netcoreapp3.1\ServerCore.dll
 D:\Visual_sol\Unity_server\ServerCore\obj\Release\netcoreapp3.1\ServerCore.pdb
+E:\Visual_sol\Unity_server\ServerCore\bin\Release\netcoreapp3.1\ServerCore.deps.json
+E:\Visual_sol\Unity_server\ServerCore\bin\Release\netcoreapp3.1\ServerCore.dll
+E:\Visual_sol\Unity_server\ServerCore\bin\Release\netcoreapp3.1\ServerCore.pdb
+E:\Visual_sol\Unity_server\ServerCore\bin\Release\netcoreapp3.1\FlatBuffers.dll
+E:\Visual_sol\Unity_server\ServerCore\obj\Release\netcoreapp3.1\ServerCore.csproj.AssemblyReference.cache
+E:\Visual_sol\Unity_server\ServerCore\obj\Release\netcoreapp3.1\ServerCore.GeneratedMSBuildEditorConfig.editorconfig
+E:\Visual_sol\Unity_server\ServerCore\obj\Release\netcoreapp3.1\ServerCore.AssemblyInfoInputs.cache
+E:\Visual_sol\Unity_server\ServerCore\obj\Release\netcoreapp3.1\ServerCore.AssemblyInfo.cs
+E:\Visual_sol\Unity_server\ServerCore\obj\Release\netcoreapp3.1\ServerCore.csproj.CoreCompileInputs.cache
+E:\Visual_sol\Unity_server\ServerCore\obj\Release\netcoreapp3.1\ServerCore.csproj.CopyComplete
+E:\Visual_sol\Unity_server\ServerCore\obj\Release\netcoreapp3.1\ServerCore.dll
+E:\Visual_sol\Unity_server\ServerCore\obj\Release\netcoreapp3.1\ServerCore.pdb

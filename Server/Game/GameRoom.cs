@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Protocol;
 using FlatBuffers;
 using System.Text;
+using Com.Amazon.Whitewater.Auxproxy.Pbuffer;
+using Aws.GameLift.Server;
 
 namespace Server.Game
 {
@@ -65,6 +67,9 @@ namespace Server.Game
                     }
 
                 }
+
+                //Gamelift 갱신
+                GameLiftServerAPI.AcceptPlayerSession(newPlayer.Session.SessionId.ToString());
             }
         }
 
@@ -105,7 +110,8 @@ namespace Server.Game
                     }
                 }
 
-
+                //Gamelift 갱신
+                GameLiftServerAPI.RemovePlayerSession(player.Session.SessionId.ToString());
 
             }
         }

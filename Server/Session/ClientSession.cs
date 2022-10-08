@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using Aws.GameLift.Server;
 using FlatBuffers;
 using Protocol;
 using Server.Game;
@@ -30,6 +32,8 @@ namespace Server
         {
             Console.WriteLine($"OnConnected : {endPoint}");
 
+
+
             fbb.Clear();
             // PROTOCOL test
             MyPlayer = PlayerManager.Instance.Add();
@@ -46,6 +50,7 @@ namespace Server
             RoomManager.Instance.Find(1).EnterGame(MyPlayer);
           
         }
+
 
         public override void OnDisConnected(EndPoint endPoint)
         {
@@ -64,5 +69,6 @@ namespace Server
         {
             //Console.WriteLine($"Transferred bytes: {numOfBytes}");
         }
+       
     }
 }

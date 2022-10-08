@@ -1,8 +1,21 @@
 {
   "version": 2,
-  "dgSpecHash": "uvg+Mdxc5A59FG9SjVCgjOPfxQ07kwYi2OicEQj2prv3vQa9R1XdITjWfFJtHLzMKNZ9VnF4J76LNREy+VyzBg==",
+  "dgSpecHash": "n3OB6l8RXhtNFf9LJznwSfINL0BG/eQbdvdtL0hu3dA54QtMJOJL5hEBCrjBtqJ8/Q2VzZZPrKC+hk8Vawzb/A==",
   "success": true,
   "projectFilePath": "E:\\Visual_sol\\Unity_server\\Server\\Server.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "D:\\Users\\Rbmin\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.1\\system.configuration.configurationmanager.6.0.1.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.security.accesscontrol\\6.0.0\\system.security.accesscontrol.6.0.0.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.security.cryptography.protecteddata\\6.0.0\\system.security.cryptography.protecteddata.6.0.0.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.security.permissions\\6.0.0\\system.security.permissions.6.0.0.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.security.principal.windows\\5.0.0\\system.security.principal.windows.5.0.0.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -7,3 +7,13 @@ D:\Visual_sol\Unity_server\PacketGenerator\bin\PacketGenerator.exe
 D:\Visual_sol\Unity_server\PacketGenerator\bin\PacketGenerator.pdb
 D:\Visual_sol\Unity_server\PacketGenerator\bin\FlatBuffers.dll
 D:\Visual_sol\Unity_server\PacketGenerator\obj\Debug\PacketGenerator.csproj.CopyComplete
+E:\Visual_sol\Unity_server\PacketGenerator\bin\PacketGenerator.exe.config
+E:\Visual_sol\Unity_server\PacketGenerator\bin\PacketGenerator.exe
+E:\Visual_sol\Unity_server\PacketGenerator\bin\PacketGenerator.pdb
+E:\Visual_sol\Unity_server\PacketGenerator\bin\FlatBuffers.dll
+E:\Visual_sol\Unity_server\PacketGenerator\obj\Debug\PacketGenerator.csproj.AssemblyReference.cache
+E:\Visual_sol\Unity_server\PacketGenerator\obj\Debug\PacketGenerator.csproj.SuggestedBindingRedirects.cache
+E:\Visual_sol\Unity_server\PacketGenerator\obj\Debug\PacketGenerator.csproj.CoreCompileInputs.cache
+E:\Visual_sol\Unity_server\PacketGenerator\obj\Debug\PacketGenerator.csproj.CopyComplete
+E:\Visual_sol\Unity_server\PacketGenerator\obj\Debug\PacketGenerator.exe
+E:\Visual_sol\Unity_server\PacketGenerator\obj\Debug\PacketGenerator.pdb
