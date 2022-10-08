@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Protocol;
 using FlatBuffers;
+using Server.Game.Object;
 
 namespace Server.Game
 {

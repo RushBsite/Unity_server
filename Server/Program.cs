@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Net;
 using ServerCore;
-using Server.Game;
 using Aws.GameLift.Server;
 using System.Collections.Generic;
 using Aws.GameLift;
 using Server.GameLift;
 using System.Threading;
+using Server.Game.Room;
 
 namespace Server
 {
-    
+
     class Program
     {
         static AutoResetEvent terminatingEvent = new AutoResetEvent(false);

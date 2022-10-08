@@ -5,8 +5,11 @@ using FlatBuffers;
 using System.Text;
 using Com.Amazon.Whitewater.Auxproxy.Pbuffer;
 using Aws.GameLift.Server;
+using System.Drawing.Drawing2D;
+using Server.Game.Object;
+using Player = Server.Game.Object.Player;
 
-namespace Server.Game
+namespace Server.Game.Room
 {
     public class GameRoom
     {
@@ -39,14 +42,14 @@ namespace Server.Game
                     //나에게 상대 스폰을 알리세용
                     fbb.Clear();
                     S_SpawnT spawnPacket = new S_SpawnT();
-                    
+
                     foreach (Player p in _players)
                     {
                         if (newPlayer != p)
                         {
                             spawnPacket.Players = new List<PlayerInfoT>();
                             spawnPacket.Players.Add(p.Info);
-                        }                           
+                        }
                     }
                     fbb.Finish(S_Spawn.Pack(fbb, spawnPacket).Value);
                     newPlayer.Session.Send(fbb.DataBuffer, (ushort)fbsId.S_Spawn);
@@ -89,7 +92,7 @@ namespace Server.Game
                 {
                     fbb.Clear();
                     S_LeaveGameT leavePacket = new S_LeaveGameT();
-                    fbb.Finish(S_LeaveGame.Pack(fbb,leavePacket).Value);                  
+                    fbb.Finish(S_LeaveGame.Pack(fbb, leavePacket).Value);
                     player.Session.Send(fbb.DataBuffer, (ushort)fbsId.S_LeaveGame);
 
                 }
@@ -118,7 +121,12 @@ namespace Server.Game
 
         public void HandleMove(Player player, C_MoveT movePacket)
         {
-            
+
+
+        }
+
+        public void Update()
+        {
 
         }
 
@@ -129,7 +137,7 @@ namespace Server.Game
                 foreach (Player p in _players)
                 {
                     p.Session.Send(bb, protocolId);
-                }  
+                }
             }
         }
 

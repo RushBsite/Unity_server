@@ -6,12 +6,14 @@ using Aws.GameLift.Server;
 using FlatBuffers;
 using Protocol;
 using Server.Game;
+using Server.Game.Object;
+using Server.Game.Room;
 using ServerCore;
 namespace Server
 {
-	
 
-	public class ClientSession : PacketSession
+
+    public class ClientSession : PacketSession
     {
         public int SessionId { get; set; }
         public Player MyPlayer { get; set; }
