@@ -6,9 +6,11 @@ using Protocol;
 
 class PacketHandler //수동관리
 {
-	private static FlatBufferBuilder fb = new FlatBufferBuilder(1024);
 	public static void C_MoveHandler(PacketSession session, IFlatbufferObject packet)
 	{
+
+		FlatBufferBuilder fb = new FlatBufferBuilder(1024);
+
 		C_Move movePacket = C_Move.GetRootAsC_Move(packet.ByteBuffer);
 
 		ClientSession clientSession = session as ClientSession;
