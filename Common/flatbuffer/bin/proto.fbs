@@ -7,6 +7,7 @@ union fbsId{
 	S_Despawn,
 	C_Move,
 	S_Move,
+	S_LoadMap,
 }
 
 enum UserState : ushort {
@@ -15,6 +16,7 @@ enum UserState : ushort {
 	Jumping = 2,
 	Dead = 3,
 }
+
 
 enum MoveDir : ushort {
 	N = 0,
@@ -74,4 +76,9 @@ table S_Move{
 	player_id:int32;
 	pos_info:PositionInfo;
 }
+
+table S_LoadMap{
+	maptype:int32;
+}
+
 

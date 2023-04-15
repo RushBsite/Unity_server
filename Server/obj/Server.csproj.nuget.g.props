@@ -12,4 +12,8 @@
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <SourceRoot Include="D:\Users\Rbmin\.nuget\packages\" />
   </ItemGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgAWSSDK_Core Condition=" '$(PkgAWSSDK_Core)' == '' ">D:\Users\Rbmin\.nuget\packages\awssdk.core\3.7.13.18</PkgAWSSDK_Core>
+    <PkgAWSSDK_SQS Condition=" '$(PkgAWSSDK_SQS)' == '' ">D:\Users\Rbmin\.nuget\packages\awssdk.sqs\3.7.2.117</PkgAWSSDK_SQS>
+  </PropertyGroup>
 </Project>

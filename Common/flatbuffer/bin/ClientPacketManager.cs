@@ -30,7 +30,9 @@ class PacketManager
 		_onRecv.Add((ushort)fbsId.S_Despawn, MakePacket<S_Despawn>);
 		_handler.Add((ushort)fbsId.S_Despawn, PacketHandler.S_DespawnHandler);		
 		_onRecv.Add((ushort)fbsId.S_Move, MakePacket<S_Move>);
-		_handler.Add((ushort)fbsId.S_Move, PacketHandler.S_MoveHandler);
+		_handler.Add((ushort)fbsId.S_Move, PacketHandler.S_MoveHandler);		
+		_onRecv.Add((ushort)fbsId.S_LoadMap, MakePacket<S_LoadMap>);
+		_handler.Add((ushort)fbsId.S_LoadMap, PacketHandler.S_LoadMapHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

@@ -99,6 +99,10 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "AWSSDK.SQS": {
+              "target": "Package",
+              "version": "[3.7.2.117, )"
+            },
             "System.Buffers": {
               "target": "Package",
               "version": "[4.5.1, )"

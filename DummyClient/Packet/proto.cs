@@ -18,6 +18,7 @@ public enum fbsId : byte
   S_Despawn = 4,
   C_Move = 5,
   S_Move = 6,
+  S_LoadMap = 7,
 };
 
 public class fbsIdUnion {
@@ -36,6 +37,7 @@ public class fbsIdUnion {
   public Protocol.S_DespawnT AsS_Despawn() { return this.As<Protocol.S_DespawnT>(); }
   public Protocol.C_MoveT AsC_Move() { return this.As<Protocol.C_MoveT>(); }
   public Protocol.S_MoveT AsS_Move() { return this.As<Protocol.S_MoveT>(); }
+  public Protocol.S_LoadMapT AsS_LoadMap() { return this.As<Protocol.S_LoadMapT>(); }
 
   public static int Pack(FlatBuffers.FlatBufferBuilder builder, fbsIdUnion _o) {
     switch (_o.Type) {
@@ -46,6 +48,7 @@ public class fbsIdUnion {
       case fbsId.S_Despawn: return Protocol.S_Despawn.Pack(builder, _o.AsS_Despawn()).Value;
       case fbsId.C_Move: return Protocol.C_Move.Pack(builder, _o.AsC_Move()).Value;
       case fbsId.S_Move: return Protocol.S_Move.Pack(builder, _o.AsS_Move()).Value;
+      case fbsId.S_LoadMap: return Protocol.S_LoadMap.Pack(builder, _o.AsS_LoadMap()).Value;
     }
   }
 }
@@ -557,6 +560,56 @@ public class S_MoveT
   public S_MoveT() {
     this.PlayerId = 0;
     this.PosInfo = new Protocol.PositionInfoT();
+  }
+}
+
+public struct S_LoadMap : IFlatbufferObject
+{
+  private Table __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_2_0_0(); }
+  public static S_LoadMap GetRootAsS_LoadMap(ByteBuffer _bb) { return GetRootAsS_LoadMap(_bb, new S_LoadMap()); }
+  public static S_LoadMap GetRootAsS_LoadMap(ByteBuffer _bb, S_LoadMap obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
+  public S_LoadMap __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public int Maptype { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetInt(o + __p.bb_pos) : (int)0; } }
+
+  public static Offset<Protocol.S_LoadMap> CreateS_LoadMap(FlatBufferBuilder builder,
+      int maptype = 0) {
+    builder.StartTable(1);
+    S_LoadMap.AddMaptype(builder, maptype);
+    return S_LoadMap.EndS_LoadMap(builder);
+  }
+
+  public static void StartS_LoadMap(FlatBufferBuilder builder) { builder.StartTable(1); }
+  public static void AddMaptype(FlatBufferBuilder builder, int maptype) { builder.AddInt(0, maptype, 0); }
+  public static Offset<Protocol.S_LoadMap> EndS_LoadMap(FlatBufferBuilder builder) {
+    int o = builder.EndTable();
+    return new Offset<Protocol.S_LoadMap>(o);
+  }
+  public S_LoadMapT UnPack() {
+    var _o = new S_LoadMapT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(S_LoadMapT _o) {
+    _o.Maptype = this.Maptype;
+  }
+  public static Offset<Protocol.S_LoadMap> Pack(FlatBufferBuilder builder, S_LoadMapT _o) {
+    if (_o == null) return default(Offset<Protocol.S_LoadMap>);
+    return CreateS_LoadMap(
+      builder,
+      _o.Maptype);
+  }
+};
+
+public class S_LoadMapT
+{
+  public int Maptype { get; set; }
+
+  public S_LoadMapT() {
+    this.Maptype = 0;
   }
 }
 
