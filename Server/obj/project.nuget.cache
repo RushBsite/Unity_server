@@ -1,8 +1,23 @@
 {
   "version": 2,
-  "dgSpecHash": "7U8YUunR/+dGLF7Q2CJNoHY6KmkEtzeb9sKkkMa2hTXbbcASi8E8rVI/qyZx5B1r32FM9csmhz4bjYt0xaydHQ==",
+  "dgSpecHash": "WT+p9G5ZllMSJOhg5iTfv5jBcA+8z0/cINVnYUCl1kX7BrQNAqNL1bIrh2nKxL0YDEJlExGlsP6Fzm8GqEsxTA==",
   "success": true,
-  "projectFilePath": "D:\\Visual_sol\\Unity_server\\Server\\Server.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "E:\\Visual_sol\\Unity_server\\Server\\Server.csproj",
+  "expectedPackageFiles": [
+    "D:\\Users\\Rbmin\\.nuget\\packages\\awssdk.core\\3.7.13.18\\awssdk.core.3.7.13.18.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\awssdk.sqs\\3.7.2.117\\awssdk.sqs.3.7.2.117.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.1\\system.configuration.configurationmanager.6.0.1.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.security.accesscontrol\\6.0.0\\system.security.accesscontrol.6.0.0.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.security.cryptography.protecteddata\\6.0.0\\system.security.cryptography.protecteddata.6.0.0.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.security.permissions\\6.0.0\\system.security.permissions.6.0.0.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.security.principal.windows\\5.0.0\\system.security.principal.windows.5.0.0.nupkg.sha512",
+    "D:\\Users\\Rbmin\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aws.GameLift.Server;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -25,7 +26,7 @@ namespace Server
                 _sessions.Add(sessionId, session);
 
                 Console.WriteLine($"Connected : {sessionId}");
-                
+                             
                 return session;
             }
         }

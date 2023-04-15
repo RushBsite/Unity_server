@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "27eBc6FKctNIC/aaKvbjZHFqDbRXUgRHgOE80qGRsiIA9iLVzHFJ1TS8eG1ubaAn+DDfEa3lNKqI2QFbfEaEtA==",
+  "dgSpecHash": "E79U5DsgPoOeS+ZwrCI7AWdRuyZb7T+sH6r+BKEYi+yz9io7hWVWyDasAIO1aZd76jdltOJwyfpH8ZJMnnpgUA==",
   "success": true,
-  "projectFilePath": "D:\\Visual_sol\\Unity_server\\ServerCore\\ServerCore.csproj",
+  "projectFilePath": "E:\\Visual_sol\\Unity_server\\ServerCore\\ServerCore.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
