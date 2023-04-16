@@ -4,7 +4,7 @@
 ## 주요 파일구조
 
 ### **ServerCore**
-![제목 없는 다이어그램 drawio](https://user-images.githubusercontent.com/28249906/232250268-5a956151-844c-4936-8522-2c0999324046.png)
+![제목 없는 다이어그램 drawio](https://user-images.githubusercontent.com/28249906/232250268-5a956151-844c-4936-8522-2c0999324046.png)  
 📦ServerCore  
  ┣ 📂bin  
  ┣ 📜Connector.cs  
